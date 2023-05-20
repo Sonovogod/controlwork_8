@@ -36,7 +36,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Login(UserLoginViewModel model)
     {
         if (User.Identity.IsAuthenticated)
-            return RedirectToAction("Profile", "Account");
+            return RedirectToAction("Profile", new { userName = User.Identity.Name });
         if (ModelState.IsValid)
         {
             User? user = await _accountService.FindByEmailOrLoginAsync(model.EmailOrLogin);
@@ -51,7 +51,7 @@ public class AccountController : Controller
                         return Redirect(model.ReturnUrl);
                     }
 
-                    return RedirectToAction("Profile", new { userName = User.Identity.Name });
+                    return RedirectToAction("Profile", new { userName = user.UserName });
                 }
 
             }
