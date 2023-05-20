@@ -1,0 +1,51 @@
+@model Forum.Service.ViewModels.Themes.FullThemeViewModel
+
+@{
+    ViewBag.Title = "Подробнее о теме";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Название темы: @Model.Title</p>
+        </div>
+        <div class="col">
+            <p>Дата создания: @Model.DateOfCreate</p>
+        </div>
+        <div class="col">
+            <p>Создал тему: @Model.User.UserName</p>
+        </div>
+    </div>
+    <div class="w-50">
+        <span>Описаниие темы: @Model.Content</span>
+    </div>
+    <div class="col border border-2 border-dark p-3">
+        <div class="row">
+            <form>
+                <div>
+                    <textarea placeholder="Оставьте свой ответ"></textarea>
+                </div>
+                <button class="btn btn-info">Отправить</button>
+            </form>
+        </div>
+        @if (Model.Messages.Any())
+        {
+            foreach (var message in Model.Messages)
+            {
+                <div class="media row">
+                    <img src="@message.User.Avatar" class="mr-3 rounded-circle" alt="@message.User.UserName">
+                    <div class="media-body">
+                        <h5 class="mt-0">@message.User.UserName</h5>
+                        <p>@message.Content</p>
+                        <small class="text-muted">@message.DateOfSend</small>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h2>Ваш комментарий будет первым</h2>
+        }
+    </div>
+</div>

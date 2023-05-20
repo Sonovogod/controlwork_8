@@ -1,0 +1,34 @@
+@model List<Forum.Service.ViewModels.Themes.ThemeViewModel>
+
+@{
+    ViewBag.Title = "Все задачи";
+    Layout = "_Layout";
+}
+@if (!Model.Any())
+{
+    <h2>Нет активных тем</h2>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Название темы</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Создатель</th>
+            <th scope="col">Кол-во ответов</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var theme in Model)
+            {
+                <tr>
+                    <td><a asp-action="About" asp-controller="Themes" asp-route-themeId="@theme.Id">@theme.Title</a></td>
+                    <td>@theme.DateOfCreate</td>
+                    <td>@theme.User.UserName</td>
+                    <td>@theme.Messages.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
