@@ -25,7 +25,14 @@ else
                 <tr>
                     <td><a asp-action="About" asp-controller="Themes" asp-route-themeId="@theme.Id">@theme.Title</a></td>
                     <td>@theme.DateOfCreate</td>
-                    <td>@theme.User.UserName</td>
+                    <td>
+                        <a asp-action="Profile"
+                           asp-controller="Account"
+                           method="get"
+                           asp-route-userName="@theme.User.UserName">
+                        @theme.User.UserName
+                        </a>
+                    </td>
                     <td>@theme.Messages.Count</td>
                 </tr>
             }

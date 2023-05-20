@@ -26,6 +26,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="btn btn-dark mx-3" 
+                               asp-action="Profile" 
+                               asp-controller="Account" 
+                               method="get"
+                               asp-route-userName="@User.Identity.Name">Личный кабинет</a>
+                        </li>
+                        <li class="nav-item">
                             <form asp-action="LogOff" asp-controller="Account" method="post" asp-antiforgery="true">
                                 <button type="submit" class="btn btn-info mx-3">Выйти</button>
                             </form>

@@ -27,17 +27,24 @@ $(document).ready(() => {
                     const date = response.dateOfCreate;
                     
                     const newComment = 
-                        $('<div class="media row">\n' +
-        '                    <img src="' + avatar + '" class="mr-3 rounded-circle" alt="' + userName + '">\n' +
-        '                    <div class="media-body">\n' +
-        '                        <h5 class="mt-0">' + userName + '</h5>\n' +
-        '                        <p>' + content + '</p>\n' +
-        '                        <small class="text-muted">' + date + '</small>\n' +
+                        $('<div class="media row mt-5">\n' +
+        '                    <div class="col-2">\n' +
+        '                        <div class="mr-3 rounded-circle border border-dark border-1">\n' +
+        '                            <img class="w-100 mr-3 rounded-circle" src="' +avatar+ '" alt="' +userName+ '">\n' +
+        '                        </div>\n' +
+        '                        <h5 class="mt-1 mx-2">' +userName+ '</h5>\n' +
+        '                    </div>\n' +
+        '                    <div class="col-8 px-2">\n' +
+        '                        <small class="text-muted">' +date+ '</small>\n' +
+        '                        <div class="w-50">\n' +
+        '                            <span>' +content+ '</span>\n' +
+        '                        </div>\n' +
         '                    </div>\n' +
         '                </div>');
                     $('#commentContainer').after(
                         newComment
-                    )
+                    );
+                    $('#commentTheme').val('');
                 },
                 error: function (response) {
                     console.log(response);
