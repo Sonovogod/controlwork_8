@@ -2,6 +2,7 @@ using Forum.Models;
 using Forum.Service;
 using Forum.Service.Abstracts;
 using Forum.Service.FileServices;
+using Forum.Service.FileSrveces;
 using Forum.Service.UserServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ builder.Services.AddDbContext<ForumContext>(options => options.UseNpgsql(connect
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IImageProfile, LogoImageProfile>();
 
 var app = builder.Build();
 var serviceProvider = app.Services;
