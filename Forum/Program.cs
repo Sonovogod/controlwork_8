@@ -1,3 +1,9 @@
+using Forum.Models;
+using Forum.Service;
+using Forum.Service.Abstracts;
+using Forum.Service.FileServices;
+using Forum.Service.FileSrveces;
+using Forum.Service.UserServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ChatContext>(options => options.UseNpgsql(connection))
+builder.Services.AddDbContext<ForumContext>(options => options.UseNpgsql(connection))
     .AddIdentity<User, IdentityRole>(options =>
     {
         options.Password.RequireDigit = false;
@@ -15,7 +21,7 @@ builder.Services.AddDbContext<ChatContext>(options => options.UseNpgsql(connecti
         options.Password.RequireUppercase = false;
         options.Password.RequireNonAlphanumeric = false;
     })
-    .AddEntityFrameworkStores<ChatContext>();
+    .AddEntityFrameworkStores<ForumContext>();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddScoped<IAccountService, AccountService>();
