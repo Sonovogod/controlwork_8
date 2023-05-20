@@ -11,14 +11,17 @@ public static class DataCeeder
         builder.Entity<User>()
             .HasData(new User()
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = "test@test.com",
                 UserName = "testera",
                 Avatar = avatar,
-                DateOfCreate = DateTime.Now
+                DateOfCreate = DateTime.Now,
+                
             });
         builder.Entity<User>()
             .HasData(new User()
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = "testb@testb.com",
                 UserName = "testerb",
                 Avatar = avatar,
@@ -27,6 +30,7 @@ public static class DataCeeder
         builder.Entity<User>()
             .HasData(new User()
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = "testc@testc.com",
                 UserName = "testerc",
                 Avatar = avatar,

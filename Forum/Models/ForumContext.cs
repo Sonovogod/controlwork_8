@@ -10,8 +10,8 @@ public class ForumContext : IdentityDbContext<User>
     public DbSet<Theme> Themes { get; set; }
     
     public ForumContext (DbContextOptions<ForumContext> options) : base(options){}
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    /*protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.SeedPredictions();
-    }
+    }*/
 }
