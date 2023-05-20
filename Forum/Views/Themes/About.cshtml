@@ -29,6 +29,7 @@
                 <button userName="@User.Identity.Name" Id="commentThemeBtn" themeId="@Model.Id" class="btn btn-info">Отправить</button>
             </form>
         </div>
+        <div id="commetBlock">
         @if (Model.Messages.Any())
         {
             foreach (var message in Model.Messages)
@@ -53,5 +54,6 @@
         {
             <h2>Ваш комментарий будет первым</h2>
         }
+        </div>
     </div>
 </div>

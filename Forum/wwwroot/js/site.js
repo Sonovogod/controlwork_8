@@ -23,8 +23,10 @@ $(document).ready(() => {
                 success: function (response){
                     const avatar = response.avatar;
                     const userName = response.userName;
-                    const content = response.comment;
-                    const date = response.dateOfCreate;
+                    const content = response.content;
+                    const date = response.date;
+                    console.log(content);
+                    console.log(date);
                     
                     const newComment = 
                         $('<div class="media row mt-5">\n' +
@@ -41,7 +43,7 @@ $(document).ready(() => {
         '                        </div>\n' +
         '                    </div>\n' +
         '                </div>');
-                    $('#commentContainer').after(
+                    $('#commetBlock').append(
                         newComment
                     );
                     $('#commentTheme').val('');
