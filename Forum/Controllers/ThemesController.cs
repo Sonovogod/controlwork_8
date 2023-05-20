@@ -3,6 +3,7 @@ using Forum.Models;
 using Forum.Service.Abstracts;
 using Forum.Service.ViewModels.Comments;
 using Forum.Service.ViewModels.Themes;
+using Forum.Views.Themes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,13 +50,21 @@ public class ThemesController : Controller
 
     [HttpGet]
     [Authorize]
-    public IActionResult About(int themeId)
+    public IActionResult About(int themeId, int currentPage = 1)
     {
         if (themeId == 0)
             return NotFound();
         
         FullThemeViewModel model = _themeService.GetThemeById(themeId);
-        return View(model);
+        int pageSize = 3;
+        int count = model.Messages.Count();
+        PaginationThemesViewModel paginationThemesViewModel = new PaginationThemesViewModel()
+        {
+            FullThemeViewModel = model,
+            Pagination = new PaginationViewModel(count, currentPage, pageSize)
+        };
+        
+        return View(paginationThemesViewModel);
     }
     
     [HttpPost]

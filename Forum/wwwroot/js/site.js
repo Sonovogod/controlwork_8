@@ -57,4 +57,12 @@ $(document).ready(() => {
             console.log("Коммент пустой")
         }
     })
+    $('#prevPageButton').on('click', function (event){
+        event.preventDefault();
+        const themeId = $(this).attr('themId');
+        const currentPage = $(this).attr('currentPage');
+
+        
+    })
 });
+

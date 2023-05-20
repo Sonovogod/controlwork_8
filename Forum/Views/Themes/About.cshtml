@@ -1,4 +1,5 @@
-@model Forum.Service.ViewModels.Themes.FullThemeViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Forum.Views.Themes.PaginationThemesViewModel
 
 @{
     ViewBag.Title = "Подробнее о теме";
@@ -8,17 +9,17 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <p>Название темы: @Model.Title</p>
+            <p>Название темы: @Model.FullThemeViewModel.Title</p>
         </div>
         <div class="col">
-            <p>Дата создания: @Model.DateOfCreate</p>
+            <p>Дата создания: @Model.FullThemeViewModel.DateOfCreate</p>
         </div>
         <div class="col">
-            <p>Создал тему: @Model.User.UserName</p>
+            <p>Создал тему: @Model.FullThemeViewModel.User.UserName</p>
         </div>
     </div>
     <div class="w-50">
-        <span>Описаниие темы: @Model.Content</span>
+        <span>Описаниие темы: @Model.FullThemeViewModel.Content</span>
     </div>
     <div class="col border border-2 border-dark p-3">
         <div class="row" id="commentContainer">
@@ -26,34 +27,56 @@
                 <div>
                     <textarea class="w-100" id="commentTheme" placeholder="Оставьте свой ответ"></textarea>
                 </div>
-                <button userName="@User.Identity.Name" Id="commentThemeBtn" themeId="@Model.Id" class="btn btn-info">Отправить</button>
+                <button userName="@User.Identity.Name" Id="commentThemeBtn" themeId="@Model.FullThemeViewModel.Id" class="btn btn-info">Отправить</button>
             </form>
         </div>
         <div id="commetBlock">
-        @if (Model.Messages.Any())
-        {
-            foreach (var message in Model.Messages)
+            @if (Model.FullThemeViewModel.Messages.Any())
             {
-                <div class="media row mt-5">
-                    <div class="col-2">
-                        <div class="mr-3 rounded-circle border border-dark border-1">
-                            <img class="w-100 mr-3 rounded-circle" src="@message.User.Avatar" alt="@message.User.UserName">
+                foreach (var message in Model.FullThemeViewModel.Messages)
+                {
+                    <div id="comment-@message.Id" class="media row mt-5">
+                        <div class="col-2">
+                            <div class="mr-3 rounded-circle border border-dark border-1">
+                                <img class="w-100 mr-3 rounded-circle" src="@message.User.Avatar" alt="@message.User.UserName">
+                            </div>
+                            <h5 class="mt-1 mx-2">@message.User.UserName</h5>
                         </div>
-                        <h5 class="mt-1 mx-2">@message.User.UserName</h5>
-                    </div>
-                    <div class="col-8 px-2">
-                        <small class="text-muted">@message.DateOfSend</small>
-                        <div class="w-50">
-                            <span>@message.Content</span>
+                        <div class="col-8 px-2">
+                            <small class="text-muted">@message.DateOfSend</small>
+                            <div class="w-50">
+                                <span>@message.Content</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                if (Model.Pagination.HasPreviousPage)
+                {
+                    <button  
+                        themId="@Model.FullThemeViewModel.Id"
+                        id="prevPageButton"
+                        currentPage="@(Model.Pagination.PageNumber - 1)"
+                        class="btn btn-info my-5">
+                        Назад
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </button>
+                }
+                if (Model.Pagination.HasNextPage)
+                {
+                    <button
+                        themId="@Model.FullThemeViewModel.Id"
+                        id="nextPageButton"
+                        currentPage="@(Model.Pagination.PageNumber + 1)"
+                        class="btn btn-info my-5">
+                        Вперед
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                }
             }
-        }
-        else
-        {
-            <h2>Ваш комментарий будет первым</h2>
-        }
+            else
+            {
+                <h2>Ваш комментарий будет первым</h2>
+            }
         </div>
     </div>
 </div>
