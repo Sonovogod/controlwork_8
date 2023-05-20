@@ -23,7 +23,8 @@ public static class ThemeExtension
             Content = model.Content,
             DateOfCreate = model.DateOfCreate,
             UserId = model.UserId,
-            User = model.User
+            User = model.User,
+            Messages = model.Messages
         };
     }
     

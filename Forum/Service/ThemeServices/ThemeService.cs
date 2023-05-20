@@ -1,6 +1,7 @@
 using Forum.Extensions;
 using Forum.Models;
 using Forum.Service.Abstracts;
+using Forum.Service.ViewModels.Comments;
 using Forum.Service.ViewModels.Themes;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,5 +47,17 @@ public class ThemeService : IThemeService
         FullThemeViewModel themeViewModel = theme.MapToFullThemeViewModel();
         
         return themeViewModel;
+    }
+
+    public Message AddComment(CreateMessageViewModel model, string userId)
+    {
+        Message message = model.MapToFullThemeViewModel();
+        message.UserId = userId;
+        message.DateOfSend = DateTime.Now;
+
+        _db.Messages.Add(message);
+        _db.SaveChanges();
+        
+        return message;
     }
 }

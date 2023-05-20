@@ -1,5 +1,7 @@
+using Forum.Extensions;
 using Forum.Models;
 using Forum.Service.Abstracts;
+using Forum.Service.ViewModels.Comments;
 using Forum.Service.ViewModels.Themes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -54,5 +56,20 @@ public class ThemesController : Controller
         
         FullThemeViewModel model = _themeService.GetThemeById(themeId);
         return View(model);
+    }
+    
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CommentTheme(CreateMessageViewModel model)
+    {
+        string currentUserName = User.Identity.Name;
+        User user = await _accountService.FindByEmailOrLoginAsync(currentUserName);
+        Message message = _themeService.AddComment(model, user.Id);
+        CommentViewModel newModel = message.MapToCommentViewModel();
+        newModel.Avatar = user.Avatar;
+        newModel.UserName = user.UserName;
+        
+        return Ok(newModel);
     }
 }
